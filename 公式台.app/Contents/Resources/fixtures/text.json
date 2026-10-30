@@ -1,0 +1,1 @@
+{"name":"text","latex":"\\text{当 }x>0","expect":["当"],"display":true,"mathml":"<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\" class=\"tml-display\" style=\"display:block math;\"><mrow><mtext>当 </mtext><mi>x</mi><mo>&gt;</mo><mn>0</mn></mrow></math>"}

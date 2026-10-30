@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>公式台</title>
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand">
+      <span class="seal" aria-hidden="true"></span>
+      <div>
+        <h1>公式台</h1>
+        <p>公式以 LaTeX 保存，可复制成 Word 和 PowerPoint 里的公式</p>
+      </div>
+    </div>
+    <div class="header-tools">
+      <div class="segment" id="segment" role="group" aria-label="公式样式">
+        <button type="button" data-display="display" class="is-on" title="单独成行，适合论文和幻灯片">独立公式</button>
+        <button type="button" data-display="inline" title="嵌在句子里，分式会小一号">行内公式</button>
+      </div>
+      <label class="size">
+        <span>预览</span>
+        <input id="size" type="range" min="20" max="64" value="32">
+      </label>
+      <button type="button" class="btn quiet" id="help">说明</button>
+    </div>
+  </header>
+  <p id="browser-note" hidden>现在是浏览器预览。复制到 Word、PowerPoint 和导出文档，请打开「公式台」。</p>
+  <div class="main">
+    <aside class="library">
+      <div class="library-head">
+        <input id="library-search" type="search" placeholder="搜索公式库" autocomplete="off">
+        <button type="button" class="btn" id="new-formula">新公式</button>
+      </div>
+      <div class="tags" id="tag-row"></div>
+      <div class="cards" id="library-list"></div>
+    </aside>
+    <div class="splitter" id="splitter" title="拖动调整公式库宽度"></div>
+    <section class="work">
+      <div class="quick" id="quick" aria-label="常用模板"></div>
+      <div class="palette" id="palette">
+        <div class="palette-head">
+          <div class="tabs" id="tabs" role="tablist"></div>
+          <input id="symbol-search" type="search" placeholder="找符号" autocomplete="off">
+        </div>
+        <div class="panels" id="panels"></div>
+      </div>
+      <div class="paper">
+        <div class="paper-top">
+          <span class="kicker">预览</span>
+          <span class="kicker" id="preview-kicker">独立公式</span>
+        </div>
+        <div class="paper-body" id="preview-math"></div>
+      </div>
+      <p class="preview-error" id="preview-error"></p>
+      <label class="source">
+        <span class="kicker">LaTeX 源码</span>
+        <textarea id="editor" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off" placeholder="输入 LaTeX，或从上面点模板。选中一段后再点，会把它包进去。"></textarea>
+      </label>
+      <div class="meta">
+        <input id="name" type="text" placeholder="名称" autocomplete="off">
+        <input id="tag" type="text" placeholder="标签" autocomplete="off">
+        <input id="note" type="text" placeholder="备注" autocomplete="off">
+        <button type="button" class="btn" id="save">保存</button>
+        <button type="button" class="btn quiet" id="save-new">存为新的</button>
+      </div>
+      <div class="actions">
+        <div class="status">
+          <span id="status-text">公式库</span>
+          <span id="slot-hint" hidden>输入会替换 □，Tab 跳到下一个</span>
+        </div>
+        <button type="button" class="btn" id="copy-latex" title="复制 LaTeX 源码">复制 LaTeX</button>
+        <button type="button" class="btn" id="copy-image" title="白底图片，任何软件都能按原样贴上">复制图片</button>
+        <label class="paste-size">粘贴字号
+          <select id="paste-size" title="复制到 Word 和 PowerPoint 时的公式大小">
+            <option value="10">10</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18" selected>18</option>
+            <option value="20">20</option>
+            <option value="22">22</option>
+            <option value="24">24</option>
+            <option value="28">28</option>
+            <option value="32">32</option>
+            <option value="36">36</option>
+            <option value="40">40</option>
+            <option value="48">48</option>
+            <option value="60">60</option>
+            <option value="72">72</option>
+          </select>
+          pt
+        </label>
+        <button type="button" class="btn primary" id="copy-word" title="按所选字号粘贴，Word 和 PowerPoint 里都可以继续编辑">复制到 Word / PPT</button>
+        <button type="button" class="btn quiet" id="more" title="更多复制方式">更多</button>
+      </div>
+    </section>
+  </div>
+</div>
+<div id="toast" class="toast" hidden></div>
+<div id="modal" class="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <h2 id="modal-title"></h2>
+    <p id="modal-text"></p>
+    <div class="modal-actions" id="modal-actions"></div>
+  </div>
+</div>
+<div id="card-menu" class="pop" hidden>
+  <button type="button" data-act="insert">插入到光标处</button>
+  <button type="button" data-act="latex">复制 LaTeX</button>
+  <button type="button" data-act="office">复制到 Word / PPT</button>
+  <button type="button" data-act="image">复制图片</button>
+  <button type="button" data-act="pin">置顶</button>
+  <button type="button" data-act="duplicate">复制一条</button>
+  <button type="button" data-act="delete" class="danger">删除</button>
+</div>
+<div id="more-menu" class="pop" hidden>
+  <button type="button" data-act="mathml">复制 MathML</button>
+  <button type="button" data-act="dollars">复制 $$ 公式</button>
+  <button type="button" data-act="clear">复制透明图片</button>
+  <button type="button" data-act="chalk">复制白字图片</button>
+  <button type="button" data-act="docx">导出 Word 文档…</button>
+  <button type="button" data-act="reveal">打开公式库位置</button>
+</div>
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/temml/temml.js"></script>
+<script src="edit.js"></script>
+<script src="palette.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

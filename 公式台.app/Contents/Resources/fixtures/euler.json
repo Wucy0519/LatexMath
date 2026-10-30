@@ -1,0 +1,1 @@
+{"name":"euler","latex":"e^{i\\pi}+1=0","expect":["<m:sSup","π"],"display":true,"mathml":"<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\" class=\"tml-display\" style=\"display:block math;\"><mrow><msup><mi>e</mi><mrow class=\"tml-sml-pad\"><mi>i</mi><mi>π</mi></mrow></msup><mo>+</mo><mn>1</mn><mo>=</mo><mn>0</mn></mrow></math>"}

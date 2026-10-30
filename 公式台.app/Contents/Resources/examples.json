@@ -1,0 +1,65 @@
+[
+  {
+    "id": "example-quadratic",
+    "name": "求根公式",
+    "tag": "代数",
+    "note": "一元二次方程 ax²+bx+c=0",
+    "latex": "x=\\frac{-b\\pm\\sqrt{b^{2}-4ac}}{2a}"
+  },
+  {
+    "id": "example-euler",
+    "name": "欧拉公式",
+    "tag": "分析",
+    "note": "",
+    "latex": "e^{i\\pi}+1=0"
+  },
+  {
+    "id": "example-normal",
+    "name": "正态分布",
+    "tag": "概率",
+    "note": "均值 μ，标准差 σ",
+    "latex": "f(x)=\\frac{1}{\\sigma\\sqrt{2\\pi}}\\,e^{-\\frac{(x-\\mu)^{2}}{2\\sigma^{2}}}"
+  },
+  {
+    "id": "example-taylor",
+    "name": "泰勒展开",
+    "tag": "分析",
+    "note": "在 a 点展开",
+    "latex": "f(x)=\\sum_{n=0}^{\\infty}\\frac{f^{(n)}(a)}{n!}(x-a)^{n}"
+  },
+  {
+    "id": "example-integral",
+    "name": "定积分",
+    "tag": "分析",
+    "note": "牛顿-莱布尼茨公式",
+    "latex": "\\int_{a}^{b}f(x)\\,dx=F(b)-F(a)"
+  },
+  {
+    "id": "example-inverse",
+    "name": "二阶矩阵求逆",
+    "tag": "线代",
+    "note": "",
+    "latex": "\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}^{-1}=\\frac{1}{ad-bc}\\begin{pmatrix}d&-b\\\\-c&a\\end{pmatrix}"
+  },
+  {
+    "id": "example-abs",
+    "name": "绝对值",
+    "tag": "代数",
+    "note": "",
+    "latex": "|x|=\\begin{cases}x,&x\\ge 0\\\\-x,&x<0\\end{cases}"
+  },
+  {
+    "id": "example-bayes",
+    "name": "贝叶斯公式",
+    "tag": "概率",
+    "note": "",
+    "latex": "P(A\\mid B)=\\frac{P(B\\mid A)\\,P(A)}{P(B)}"
+  },
+  {
+    "id": "example-limit",
+    "name": "重要极限",
+    "tag": "分析",
+    "note": "",
+    "latex": "\\lim_{x\\to 0}\\frac{\\sin x}{x}=1"
+  }
+]

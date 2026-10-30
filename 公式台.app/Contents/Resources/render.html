@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<style>
+  html, body { margin: 0; padding: 0; overflow: hidden; background: transparent; }
+  #out { display: inline-block; padding: 18px 22px 20px; }
+  #out.paper { background: #ffffff; color: #1b1714; }
+  #out.clear { background: transparent; color: #1b1714; }
+  #out.chalk { background: transparent; color: #ffffff; }
+  .katex-display { margin: 0 !important; display: inline-block !important; white-space: nowrap !important; }
+  .katex { line-height: 1.25; }
+</style>
+</head>
+<body>
+<div id="out"></div>
+<script src="vendor/katex/katex.min.js"></script>
+<script>
+function renderFormula(spec) {
+  window.__renderResult = "";
+  const paint = () => {
+    try {
+      const out = document.getElementById("out");
+      out.className = spec.appearance;
+      out.style.background = "";
+      const background = spec.appearance === "paper" ? "#ffffff" : "transparent";
+      document.documentElement.style.background = background;
+      document.body.style.background = background;
+      katex.render(spec.latex, out, {
+        displayMode: !!spec.display,
+        throwOnError: true,
+        output: "html",
+        trust: false
+      });
+      const rect = out.getBoundingClientRect();
+      window.__renderResult = JSON.stringify({
+        width: Math.ceil(rect.width),
+        height: Math.ceil(rect.height)
+      });
+    } catch (error) {
+      window.__renderResult = JSON.stringify({ error: String(error && error.message || error) });
+    }
+  };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(paint);
+  else paint();
+  return "ok";
+}
+function setMatte(which) {
+  const color = which === "black" ? "#000000" : "#ffffff";
+  document.documentElement.style.background = color;
+  document.body.style.background = color;
+  document.getElementById("out").style.background = color;
+  return true;
+}
+</script>
+</body>
+</html>

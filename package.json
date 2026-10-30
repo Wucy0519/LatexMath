@@ -1,0 +1,10 @@
+{
+  "name": "formula-desk",
+  "private": true,
+  "version": "1.0.0",
+  "description": "公式台",
+  "dependencies": {
+    "katex": "^0.16.22",
+    "temml": "^0.11.11"
+  }
+}

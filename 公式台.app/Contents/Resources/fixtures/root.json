@@ -1,0 +1,1 @@
+{"name":"root","latex":"\\sqrt[3]{x}","expect":["<m:rad",">3<"],"display":true,"mathml":"<math xmlns=\"http://www.w3.org/1998/Math/MathML\" display=\"block\" class=\"tml-display\" style=\"display:block math;\"><mroot><mrow><mi>x</mi><mspace width=\"0pt\" height=\"0.5em\"></mspace></mrow><mn>3</mn></mroot></math>"}
